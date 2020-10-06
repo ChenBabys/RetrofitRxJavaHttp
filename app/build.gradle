@@ -25,7 +25,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
@@ -33,14 +33,15 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
     //网络框架请求集
+    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
     implementation 'com.squareup.retrofit2:adapter-rxjava:2.2.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.0.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+//    implementation 'com.squareup.okhttp3:okhttp:3.11.0' //retrofit:2.6.1中已经包含了这个包，不需要再加入
     implementation 'io.reactivex:rxjava:1.2.0'
     implementation 'io.reactivex:rxandroid:1.2.1'
     // 布兰柯基工具库(库一定要更新到1.28.1,最新的BusUtils改变挺大的，如果还是1.24版本会使用不了)
     implementation 'com.blankj:utilcode:1.28.1'
     //图片
-    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
 }

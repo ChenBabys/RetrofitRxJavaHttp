@@ -13,6 +13,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
  * 工具拦截器
+ * 必须引用okhttp3:logging-interceptor进来gradle
  */
 public class InterceptorUtil {
     public static final String TAG = "InterceptorUtil";
