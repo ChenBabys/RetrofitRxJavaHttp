@@ -1,6 +1,4 @@
 package com.tqkj.retrofitrxjavahttp.model;
-
-import android.annotation.SuppressLint;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.tqkj.retrofitrxjavahttp.bean.WangYiNewsBean;
@@ -19,7 +17,7 @@ import rx.schedulers.Schedulers;
  * author : CYS
  * e-mail : 1584935420@qq.com
  * date : 2020/10/6 1:09
- * desc :
+ * desc : 请求网络，page是页码，count是单次请求回来的新闻条数
  * version : 1.0
  */
 public class MainModel {
@@ -41,7 +39,6 @@ public class MainModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())//主线程
                 .subscribe(new BaseObserver<List<WangYiNewsBean>>() {
-                    @SuppressLint("SetTextI18n")
                     @Override
                     public void onSuccess(BaseResponse<List<WangYiNewsBean>> baseResponse) {
                         //成功回调方法,可以直接在此更新ui,AndroidSchedulers.mainThread()表示切换到主线程

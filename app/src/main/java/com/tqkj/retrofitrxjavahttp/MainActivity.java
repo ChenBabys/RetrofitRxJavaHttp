@@ -5,15 +5,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import okhttp3.OkHttpClient;
-import retrofit2.Retrofit;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-
-import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.tqkj.retrofitrxjavahttp.activity.WebActivity;
 import com.tqkj.retrofitrxjavahttp.adapter.MainListAdapter;
@@ -30,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvTitle;
     private MainListAdapter adapter;
     private MainViewModel mainViewModel;
-    private int page = 1;//首次为1
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,14 +65,14 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
 //                            adapter.clear();//做页数的就清理了
-                            page++;
-                            mainViewModel.refreshNews(String.valueOf(page));//刷新数据
+                            mainViewModel.page++;
+                            mainViewModel.refreshNews(String.valueOf(mainViewModel.page));//刷新数据
                         }
                     });
                 } else {
                     adapter.addItems(wangYiNewsBeans);
                 }
-                ToastUtils.showShort("现在是第" + page + "页，总共已经为您推荐了" + wangYiNewsBeans.size()*page + "条新闻，每次刷新提供8条，请观赏");
+                ToastUtils.showShort("现在是第" + mainViewModel.page + "页，总共已经为您推荐了" + wangYiNewsBeans.size() * mainViewModel.page + "条新闻，每次刷新提供8条，请观赏");
             }
         });
 
