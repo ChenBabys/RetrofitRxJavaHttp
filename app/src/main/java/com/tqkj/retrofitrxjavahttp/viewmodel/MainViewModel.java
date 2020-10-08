@@ -1,8 +1,11 @@
 package com.tqkj.retrofitrxjavahttp.viewmodel;
+
 import com.blankj.utilcode.util.ToastUtils;
 import com.tqkj.retrofitrxjavahttp.bean.WangYiNewsBean;
 import com.tqkj.retrofitrxjavahttp.model.MainModel;
+
 import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
@@ -22,9 +25,12 @@ public class MainViewModel extends ViewModel {
     public int page = 1;//首次为1
 
     //构造函数，只有第一次绑定时候会执行。
-    public MainViewModel(MainModel mainModel) {
-        //wangyiNewsLiveData = mainModel.getNews();//网络请求并返回
-        this.mainModel = mainModel;
+//    public MainViewModel(MainModel mainModel) {//改成下面这句了
+    public MainViewModel() {
+        //wangyiNewsLiveData = mainModel.getNews();//网络请求并返回，已经换成refreshNews()方法执行获取了，这里完全可以删了
+        //MainModel从构造函数获取
+        // this.mainModel = mainModel;//改成下面这句了
+        this.mainModel = new MainModel();
         wangyiNewsLiveData = refreshNews(String.valueOf(page));//首次给第一页，只会执行一次绑定，所以是首次。之后不会在执行，只会通过livedata动态观察
         ToastUtils.showShort("初次见面，请多多指教");
     }
@@ -41,21 +47,26 @@ public class MainViewModel extends ViewModel {
 
 
     /**
-     * 提前设置构造类
+     * 提前设置构造类,需要传递什么样的参数给viewmodel都通过这个构造函数传递就行。
+     * mainActivity中的：
+     * mainViewModel = new ViewModelProvider(this, new MainViewModel.Factory()).get(MainViewModel.class);
+     * 改为：
+     *  mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+     *  了，所以这个构造函数也可以先不用了。
      */
-    public static class Factory extends ViewModelProvider.NewInstanceFactory {
-        private final MainModel mainModel;
-
-        public Factory() {
-            this.mainModel = new MainModel();
-        }
-
-        @SuppressWarnings("unchecked")
-        @NonNull
-        @Override
-        public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-            return (T) new MainViewModel(mainModel);//设置为无参数
-        }
-    }
+//    public static class Factory extends ViewModelProvider.NewInstanceFactory {
+//        private final MainModel mainModel;
+//
+//        public Factory() {
+//            this.mainModel = new MainModel();
+//        }
+//
+//        @SuppressWarnings("unchecked")
+//        @NonNull
+//        @Override
+//        public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+//            return (T) new MainViewModel(mainModel);//设置为无参数
+//        }
+//    }
 
 }

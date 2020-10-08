@@ -5,10 +5,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
 import com.blankj.utilcode.util.ToastUtils;
 import com.tqkj.retrofitrxjavahttp.activity.WebActivity;
 import com.tqkj.retrofitrxjavahttp.adapter.MainListAdapter;
@@ -35,8 +37,18 @@ public class MainActivity extends AppCompatActivity {
         rcvNews = this.findViewById(R.id.rclv_news_list);
         //绑定生命周期的监听
         getLifecycle().addObserver(new MainLifecycle(this));
-        //获取viwemodel实例
-        mainViewModel = new ViewModelProvider(this, new MainViewModel.Factory()).get(MainViewModel.class);
+
+        //获取viwemodel实例，必须加入第二个构造参数。否则没有对应的构造方法无法传入参数给viewmodel.
+        //但是有时候遇到不用传递参数给viewmodel的情况，第二个参数就不必要了，所以为了兼容这种情况，提高代码的可读性，
+        // 所以如果想有只传入this的话，可以引入extensions2.2.0包，即在gradle中：加入 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
+        //mainViewModel = new ViewModelProvider(this, new MainViewModel.Factory()).get(MainViewModel.class);
+
+        //所以就可以写成这种方式了，有参用上面的，无参数就用下面的，所以说参数不用这里传递的也用下面这个
+        // ,用这个方法的同时，MainViewModel那边的构造函数也要去掉才行，并且那边的new MainModel(),也不要放在Factory构造函数里面new了
+        // ，直接在MainViewModel构造函数里面new就行，并删除MainViewModel构造函数中的参数MainModel。
+        mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+
 
         rcvNews.setHasFixedSize(true);
         rcvNews.setNestedScrollingEnabled(false);
