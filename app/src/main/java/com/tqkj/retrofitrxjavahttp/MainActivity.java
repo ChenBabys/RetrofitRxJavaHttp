@@ -88,6 +88,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //观察时间，系统更新就更新
+        mainViewModel.getTimeData().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String time) {
+                tvTitle.setText(time);
+            }
+        });
+
+
     }
 
 }
