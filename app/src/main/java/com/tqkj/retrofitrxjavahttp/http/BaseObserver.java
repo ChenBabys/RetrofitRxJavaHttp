@@ -17,9 +17,15 @@ public abstract class BaseObserver<T> implements Observer<BaseResponse<T>> {
 
     private Context context;
 
+    //传入上下文的构造函数
     public BaseObserver(Context context) {
         this.context = context;
     }
+
+    //无参构造函数
+    public BaseObserver() {
+    }
+
 
     /**
      * //请求成功且返回码为200的回调方法,这里抽象方法申明

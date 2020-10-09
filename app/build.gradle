@@ -43,7 +43,4 @@ dependencies {
     implementation 'com.blankj:utilcode:1.28.1'
     //图片
     implementation 'com.github.bumptech.glide:glide:4.8.0'
-    //使用 Biometric 库向应用添加生物识别身份验证,如指纹验证等
-    implementation 'androidx.biometric:biometric:1.0.1'
-
 }

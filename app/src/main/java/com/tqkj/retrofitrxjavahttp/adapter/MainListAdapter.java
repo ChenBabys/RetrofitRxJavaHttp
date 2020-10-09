@@ -62,10 +62,24 @@ public class MainListAdapter extends RecyclerView.Adapter<MainListAdapter.MainVi
         return newsListBeans.size();
     }
 
+    /**
+     * 更新所有数据，替换掉所有
+     * @param newsListBeans
+     */
     public void updateAll(List<WangYiNewsBean> newsListBeans) {
         this.newsListBeans = newsListBeans;
         notifyDataSetChanged();
     }
+
+    /**
+     * 叠加数据
+     * @param newsListBeans
+     */
+    public void addItems(List<WangYiNewsBean> newsListBeans) {
+        this.newsListBeans.addAll(newsListBeans);
+        notifyDataSetChanged();
+    }
+
 
     public void clear() {
         if (newsListBeans != null && !newsListBeans.isEmpty()) {
