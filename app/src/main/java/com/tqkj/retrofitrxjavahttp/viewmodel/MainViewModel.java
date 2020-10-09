@@ -1,25 +1,12 @@
 package com.tqkj.retrofitrxjavahttp.viewmodel;
 
-import android.os.Build;
-import android.os.Handler;
-
 import com.blankj.utilcode.util.ToastUtils;
 import com.tqkj.retrofitrxjavahttp.bean.WangYiNewsBean;
 import com.tqkj.retrofitrxjavahttp.model.MainModel;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
+
 
 /**
  * author : CYS
