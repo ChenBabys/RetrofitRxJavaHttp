@@ -10,23 +10,27 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.tqkj.retrofitrxjavahttp.activity.WebActivity;
 import com.tqkj.retrofitrxjavahttp.adapter.MainListAdapter;
 import com.tqkj.retrofitrxjavahttp.bean.WangYiNewsBean;
 import com.tqkj.retrofitrxjavahttp.lifecycle.MainLifecycle;
+import com.tqkj.retrofitrxjavahttp.nfc.NfcHandler;
+import com.tqkj.retrofitrxjavahttp.nfc.NfcView;
 import com.tqkj.retrofitrxjavahttp.viewmodel.MainViewModel;
 
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NfcView {
 
     private RecyclerView rcvNews;
     private TextView tvTitle;
     private MainListAdapter adapter;
     private MainViewModel mainViewModel;
+    private NfcHandler nfcHandler;
 
 
     @Override
@@ -54,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
         rcvNews.setNestedScrollingEnabled(false);
         rcvNews.setLayoutManager(new LinearLayoutManager(MainActivity.this, RecyclerView.VERTICAL, false));
         initData();
+
+        //Nfc相关初始化
+        nfcHandler = new NfcHandler(this);
+        nfcHandler.init(this);
     }
 
     private void initData() {
@@ -99,4 +107,47 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * 可要可不要
+     *
+     * @param intent
+     */
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        nfcHandler.enableNfc(this);
+        //直接在准备好的时候就读卡
+        nfcHandler.readCardId(getIntent());
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        nfcHandler.disableNfc(this);
+    }
+
+    /**
+     * 获取到的卡号或者id
+     *
+     * @param response
+     */
+    @Override
+    public void appendResponse(String response) {
+        Toast.makeText(this, response, Toast.LENGTH_SHORT).show();
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        nfcHandler.onDestroy();
+    }
 }
