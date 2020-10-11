@@ -9,6 +9,8 @@ import android.nfc.Tag;
 import android.nfc.tech.IsoDep;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.ToastUtils;
+
 import java.io.IOException;
 
 /**
@@ -52,8 +54,9 @@ public class NfcHandler {
      */
     private void connectNfc(Intent intent) {
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())
-                || NfcAdapter.ACTION_TECH_DISCOVERED.equals(intent.getAction())
-                || NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
+//                || NfcAdapter.ACTION_TECH_DISCOVERED.equals(intent.getAction())
+//                || NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())
+        ) {
             Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
             if (tag != null) {
                 mIsoDep = IsoDep.get(tag);
@@ -63,6 +66,8 @@ public class NfcHandler {
                     e.printStackTrace();
                 }
             }
+        } else {
+            ToastUtils.showShort("不支持的类型");
         }
     }
 
