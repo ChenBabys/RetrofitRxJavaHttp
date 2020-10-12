@@ -17,7 +17,7 @@ import java.io.IOException;
  * author : CYS
  * e-mail : 1584935420@qq.com
  * date : 2020/10/10 23:14
- * desc :
+ * desc : NFC读卡功能，如需要指令功能自行修改添加即可。
  * version : 1.0
  */
 public class NfcHandler {
