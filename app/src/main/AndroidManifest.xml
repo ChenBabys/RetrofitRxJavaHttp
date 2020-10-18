@@ -6,15 +6,16 @@
     <uses-permission android:name="android.permission.INTERNET" /> <!-- 网络权限 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-
-
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> <!-- 解锁屏幕需要的权限 -->
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" /> <!-- 申请电源锁需要的权限 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- 震动权限 -->
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- android 9.0之后使用前台服务，需要添加权限 -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- NFC相关的两个 -->
     <uses-permission android:name="android.permission.NFC" />
 
     <uses-feature
         android:name="android.hardware.nfc"
         android:required="true" />
-
 
     <application
         android:name=".App"
@@ -26,6 +27,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="UnusedAttribute">
+        <activity android:name=".activity.TestWebSocketActivity"></activity>
+        <!-- 后台服务-长连接 -->
+        <!-- <service android:name=".okwebsocket.OkWebSocket" /> 这个服务没有调用，先注释 -->
+        <service
+            android:name=".otherwebsocket.JWebSocketClientService"
+            android:enabled="true"
+            android:exported="false" />
+        <service
+            android:name=".otherwebsocket.JWebSocketClientService$GrayInnerService"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":gray" />
+
         <activity android:name=".activity.WebActivity" />
         <activity
             android:name=".MainActivity"
@@ -36,24 +50,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-            <!--以下是NFC相关-->
+            <!-- 以下是NFC相关 -->
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:mimeType="text/plain" />
             </intent-filter>
 
-<!--            <intent-filter>-->
-<!--                <action android:name="android.nfc.action.TAG_DISCOVERED" />-->
-<!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.nfc.action.TAG_DISCOVERED" /> -->
+            <!-- </intent-filter> -->
 
-<!--            <intent-filter>-->
-<!--                <action android:name="android.nfc.action.TECH_DISCOVERED" />-->
-<!--            </intent-filter>-->
 
-<!--            <meta-data-->
-<!--                android:name="android.nfc.action.TECH_DISCOVERED"-->
-<!--                android:resource="@xml/nfc_tech_filter" />-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.nfc.action.TECH_DISCOVERED" /> -->
+            <!-- </intent-filter> -->
+
+
+            <!-- <meta-data -->
+            <!-- android:name="android.nfc.action.TECH_DISCOVERED" -->
+            <!-- android:resource="@xml/nfc_tech_filter" /> -->
 
         </activity>
     </application>
